@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-portal-deployment
+spec:
+  repicas: 1
+  selector:
+    matchLabels:
+      component: order-portal
+  template:
+    metadata:
+      lables:
+        component: order-portal
+    spec:
+      containers:
+        - name: order-portal
+          image: neerajbhattneeraj/order-portal
+          ports:
+            - containerPort: 8090

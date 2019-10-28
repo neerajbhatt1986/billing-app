@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-portal-deployment
+spec:
+  repicas: 1
+  selector:
+    matchLabels:
+      component: product-portal
+  template:
+    metadata:
+      lables:
+        component: product-portal
+    spec:
+      containers:
+        - name: product-portal
+          image: neerajbhattneeraj/product-portal
+          ports:
+            - containerPort: 8070

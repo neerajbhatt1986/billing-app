@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customer-portal-deployment
+spec:
+  repicas: 1
+  selector:
+    matchLabels:
+      component: customer-portal
+  template:
+    metadata:
+      lables:
+        component: customer-portal
+    spec:
+      containers:
+        - name: customer-portal
+          image: neerajbhattneeraj/customer-portal
+          ports:
+            - containerPort: 8080

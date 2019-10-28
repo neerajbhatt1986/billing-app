@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: discovery-server-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: discovery-server
+  template:
+    metadata:
+      labels:
+        component: discovery-server
+    spec:
+      containers:
+        - name: discovery-server
+          image: neerajbhattneeraj/discovery-server
+          ports:
+            - containerPort: 8761
+
+
+
+

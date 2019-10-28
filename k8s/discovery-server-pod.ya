@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: discovery-pod
+  labels:
+    component: discovery-server
+spec:
+  containers:
+    - name: discovery-server
+      image: neerajbhattneeraj/discovery-server
+      ports:
+        - containerPort: 8761
