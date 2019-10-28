@@ -1,0 +1,39 @@
+version: '3'
+services:
+  configserver:
+    build:
+      context: ./config-server
+    ports:
+      - "8888:8888"
+  nameserver:
+    build:
+      context: ./discovery-server
+    ports:
+      - "8761:8761"
+  customer-portal:
+    build:
+      context: ./billing/customer
+    ports:
+      - "8080:8080"
+    environment:
+      - MJ_APIKEY_PUBLIC
+      - MJ_APIKEY_PRIVATE
+    depends_on:
+      - "configserver"
+      - "nameserver"
+  product-portal:
+    build:
+      context: ./billing/product-portal
+    ports:
+      - "8070:8070"
+    links:
+      - "configserver"
+      - "nameserver"
+  order-portal:
+    build:
+      context: ./billing/order-portal
+    ports:
+      - "8090:8090"
+    links:
+      - "configserver"
+      - "nameserver"
