@@ -1,0 +1,182 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Billing",
+		"_postman_id": "c4df60a1-c6fe-2773-61d7-b81827ac5f48",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "customer-portal",
+			"description": "",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"url": "{{url}}/login",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\":\"neerajbhattneeraj@gmail.com\", \n\t\"password\": \"Neeraj@1986\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "2 step authenication",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData=JSON.parse(responseBody);",
+									"",
+									"postman.setEnvironmentVariable(\"token\", jsonData.token)"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{url}}/mail/authentication",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\":\"neerajbhattneeraj+1@gmail.com\", \n\t\"authenticationCode\":\"8190\"\n}"
+						},
+						"description": ""
+					},
+					"response": [
+						{
+							"id": "8628a094-031a-47c6-bb0b-4720757e1159",
+							"name": "2 step authenication",
+							"originalRequest": {
+								"url": "{{url}}/mail/authentication",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"email\":\"neerajbhattneeraj@gmail.com\", \n\t\"authenticationCode\": \"4132\"\n}"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "text",
+							"header": [
+								{
+									"name": "content-type",
+									"key": "content-type",
+									"value": "application/json;charset=UTF-8",
+									"description": "The mime type of this content"
+								},
+								{
+									"name": "date",
+									"key": "date",
+									"value": "Wed, 11 Sep 2019 04:49:52 GMT",
+									"description": "The date and time that the message was sent"
+								},
+								{
+									"name": "transfer-encoding",
+									"key": "transfer-encoding",
+									"value": "chunked",
+									"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+								}
+							],
+							"cookie": [],
+							"responseTime": 504,
+							"body": "{\"token\":\"eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiTmVlcmFqIEJoYXR0IiwiZXhwIjoxNTY4MTc3NTcyLCJlbWFpbCI6Im5lZXJhamJoYXR0bmVlcmFqQGdtYWlsLmNvbSJ9.HIcLZ9XlWzNzJp_bCI7H3MF_ps-QMoOIH1aHm8V2vWI\"}"
+						}
+					]
+				},
+				{
+					"name": "User Registration",
+					"request": {
+						"url": "{{url}}/user/register",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\":\"neerajbhattneeraj+2@gmail.com\",\n\t\"password\":\"Neeraj@1986\",\n\t\"name\":\"Neeraj Bhatt\", \n\t\"password2\":\"Neeraj@1986\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Activate Account",
+					"request": {
+						"url": "{{url}}/activate/account/b58286f8-7a2a-4494-b563-b2224fe4b9f9\t",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\":\"neerajbhattneeraj@gmail.com\",\n\t\"password\":\"Neeraj@1986\",\n\t\"name\":\"Neeraj Bhatt\", \n\t\"password2\":\"Neeraj@1986\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "User Details",
+					"request": {
+						"url": "{{url}}/user/details/1",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "auth-token",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\":\"neerajbhattneeraj@gmail.com\",\n\t\"password\":\"Neeraj@1986\",\n\t\"name\":\"Neeraj Bhatt\", \n\t\"password2\":\"Neeraj@1986\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
