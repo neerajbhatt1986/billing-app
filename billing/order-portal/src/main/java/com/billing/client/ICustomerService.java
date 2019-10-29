@@ -5,7 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(value = "customer-portal-feign", url = "http://localhost:8080")
+@FeignClient(value = "customer-portal-feign", url = "${customer.portal.url}")
 public interface ICustomerService {
 
     @GetMapping("user/details/{userId}")
