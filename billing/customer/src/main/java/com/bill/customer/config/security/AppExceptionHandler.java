@@ -22,35 +22,33 @@ public class AppExceptionHandler {
 
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<Object> handleException(AuthenticationException securityInterceptor){
-        List<String> details = new ArrayList<>();
-        details.add(securityInterceptor.getLocalizedMessage());
-        ErrorResponse error = new ErrorResponse(HttpStatus.UNAUTHORIZED.value(), details);
+        ErrorResponse error = new ErrorResponse(HttpStatus.UNAUTHORIZED.value(), securityInterceptor.getLocalizedMessage());
         return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(CustomerPortalException.class)
     public ResponseEntity<Object> handleException(CustomerPortalException customerPortalException){
-        List<String> details = new ArrayList<>();
-        details.add(customerPortalException.getLocalizedMessage());
-        ErrorResponse error = new ErrorResponse(HttpStatus.BAD_REQUEST.value(), details);
+
+        ErrorResponse error = new ErrorResponse(HttpStatus.BAD_REQUEST.value(), customerPortalException.getMessage());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     protected ResponseEntity<ErrorResponse> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
         List<String> details = new ArrayList<>();
         for(ObjectError error : ex.getBindingResult().getAllErrors()) {
             details.add(error.getDefaultMessage());
         }
-        ErrorResponse error = new ErrorResponse(HttpStatus.BAD_REQUEST.value(), details);
+        ErrorResponse error = new ErrorResponse(HttpStatus.BAD_REQUEST.value());
+        error.getErrors().addAll(details);
         return new ResponseEntity(error, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleException(Exception exception){
         log.error(exception.getMessage(), exception);
-        List<String> details = new ArrayList<>();
-        details.add(exception.getLocalizedMessage());
-        ErrorResponse error = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), details);
+
+        ErrorResponse error = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), exception.getMessage());
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
