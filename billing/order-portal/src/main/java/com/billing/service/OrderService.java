@@ -9,6 +9,7 @@ import com.billing.dto.ProductDTO;
 import com.billing.dto.UserDTO;
 import com.billing.entity.Order;
 import com.billing.entity.OrderLine;
+import com.billing.exception.AppException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,7 +38,7 @@ public class OrderService implements IOrderService{
 
     @Override
     public OrderDTO findOrder(Integer orderId){
-        Order order = orderRepository.findById(orderId).orElseThrow(() -> new RuntimeException("No User find for id"));
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new AppException("No User find for id"));
         return modelMapper.map(order, OrderDTO.class);
     }
 

@@ -18,22 +18,35 @@ services:
     environment:
       - MJ_APIKEY_PUBLIC
       - MJ_APIKEY_PRIVATE
+      - CONFIG_SERVER=configserver
+      - DISCOVERY_SERVER=nameserver
     depends_on:
-      - "configserver"
-      - "nameserver"
+      - configserver
+      - nameserver
   product-portal:
     build:
       context: ./billing/product-portal
     ports:
       - "8070:8070"
-    links:
-      - "configserver"
-      - "nameserver"
+    environment:
+      - CONFIG_SERVER=configserver
+      - DISCOVERY_SERVER=nameserver
+    depends_on:
+      - configserver
+      - nameserver
   order-portal:
     build:
       context: ./billing/order-portal
     ports:
       - "8090:8090"
-    links:
-      - "configserver"
-      - "nameserver"
+    environment:
+      - CONFIG_SERVER=configserver
+      - DISCOVERY_SERVER=nameserver
+      - CUSTOMER_PORTAL_URL=customer-portal
+      - CUSTOMER_PORTAL_PORT=8080
+      - PRODUCT_PORTAL_URL=product-portal
+      - PRODUCT_PORTAL_PORT=8070
+    depends_on:
+      - configserver
+      - nameserver
+
