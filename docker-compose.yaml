@@ -13,6 +13,7 @@ services:
   customer-portal:
     build:
       context: ./billing/customer
+    restart: always
     ports:
       - "8080:8080"
     environment:
