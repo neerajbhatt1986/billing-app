@@ -3,13 +3,13 @@ kind: Deployment
 metadata:
   name: product-portal-deployment
 spec:
-  repicas: 1
+  replicas: 1
   selector:
     matchLabels:
       component: product-portal
   template:
     metadata:
-      lables:
+      labels:
         component: product-portal
     spec:
       containers:
@@ -17,3 +17,8 @@ spec:
           image: neerajbhattneeraj/product-portal
           ports:
             - containerPort: 8070
+          env:
+            - name: CONFIG_SERVER
+              value: config-server-cluster-ip
+            - name: DISCOVERY_SERVER
+              value: discovery-server-cluster-ip

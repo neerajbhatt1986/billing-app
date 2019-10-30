@@ -3,13 +3,13 @@ kind: Deployment
 metadata:
   name: order-portal-deployment
 spec:
-  repicas: 1
+  replicas: 1
   selector:
     matchLabels:
       component: order-portal
   template:
     metadata:
-      lables:
+      labels:
         component: order-portal
     spec:
       containers:
@@ -17,3 +17,16 @@ spec:
           image: neerajbhattneeraj/order-portal
           ports:
             - containerPort: 8090
+          env:
+            - name: CONFIG_SERVER
+              value: config-server-cluster-ip
+            - name: DISCOVERY_SERVER
+              value: discovery-server-cluster-ip
+            - name: CUSTOMER_PORTAL_URL
+              value: customer-portal-cluster-ip
+            - name: CUSTOMER_PORTAL_PORT
+              value: '8080'
+            - name: PRODUCT_PORTAL_URL
+              value: product-portal-cluster-ip
+            - name: PRODUCT_PORTAL_PORT
+              value: '8070'

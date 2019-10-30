@@ -3,13 +3,13 @@ kind: Deployment
 metadata:
   name: customer-portal-deployment
 spec:
-  repicas: 1
+  replicas: 1
   selector:
     matchLabels:
       component: customer-portal
   template:
     metadata:
-      lables:
+      labels:
         component: customer-portal
     spec:
       containers:
@@ -17,3 +17,18 @@ spec:
           image: neerajbhattneeraj/customer-portal
           ports:
             - containerPort: 8080
+          env:
+            - name: MJ_APIKEY_PUBLIC
+              valueFrom:
+                secretKeyRef:
+                  name: mailjet-secret
+                  key: MJ_APIKEY_PUBLIC
+            - name: MJ_APIKEY_PRIVATE
+              valueFrom:
+                secretKeyRef:
+                  name: mailjet-secret
+                  key: MJ_APIKEY_PRIVATE
+            - name: CONFIG_SERVER
+              value: config-server-cluster-ip
+            - name: DISCOVERY_SERVER
+              value: discovery-server-cluster-ip
