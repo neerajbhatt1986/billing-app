@@ -14,9 +14,9 @@ spec:
     spec:
       containers:
         - name: customer-portal
-          image: neerajbhattneeraj/customer-portal
+          image: neerajbhattneeraj/customer-portal:1.1
           ports:
-            - containerPort: 8080
+            - containerPort: 8060
           env:
             - name: MJ_APIKEY_PUBLIC
               valueFrom:

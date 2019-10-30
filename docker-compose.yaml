@@ -9,7 +9,7 @@ services:
     build:
       context: ./api-gateway
     ports:
-      - "8060:8060"
+      - "8080:8080"
   nameserver:
     build:
       context: ./discovery-server
@@ -20,7 +20,7 @@ services:
       context: ./billing/customer
     restart: always
     ports:
-      - "8080:8080"
+      - "8060:8060"
     environment:
       - MJ_APIKEY_PUBLIC
       - MJ_APIKEY_PRIVATE

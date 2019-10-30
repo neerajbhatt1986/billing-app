@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: order-portal-deployment
+  name: billing-api-gateway-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      component: order-portal
+      component: api-gateway
   template:
     metadata:
       labels:
-        component: order-portal
+        component: api-gateway
     spec:
       containers:
-        - name: order-portal
-          image: neerajbhattneeraj/order-portal
+        - name: api-gateway
+          image: neerajbhattneeraj/billing-api-gateway:1.2
           ports:
-            - containerPort: 8090
+            - containerPort: 8080
           env:
             - name: CONFIG_SERVER
               value: config-server-cluster-ip
@@ -30,3 +30,7 @@ spec:
               value: product-portal-cluster-ip
             - name: PRODUCT_PORTAL_PORT
               value: '8070'
+            - name: ORDER_PORTAL_URL
+              value: order-portal-cluster-ip
+            - name: ORDER_PORTAL_PORT
+              value: '8090'
