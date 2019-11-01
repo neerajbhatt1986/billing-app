@@ -10,6 +10,18 @@ services:
       context: ./api-gateway
     ports:
       - "8080:8080"
+    environment:
+      - CONFIG_SERVER=configserver
+      - DISCOVERY_SERVER=nameserver
+      - CUSTOMER_PORTAL_URL=customer-portal
+      - CUSTOMER_PORTAL_PORT=8060
+      - PRODUCT_PORTAL_URL=product-portal
+      - PRODUCT_PORTAL_PORT=8070
+      - ORDER_PORTAL_URL=order-portal
+      - ORDER_PORTAL_PORT=8090
+    depends_on:
+      - configserver
+      - nameserver
   nameserver:
     build:
       context: ./discovery-server
@@ -49,7 +61,7 @@ services:
       - CONFIG_SERVER=configserver
       - DISCOVERY_SERVER=nameserver
       - CUSTOMER_PORTAL_URL=customer-portal
-      - CUSTOMER_PORTAL_PORT=8080
+      - CUSTOMER_PORTAL_PORT=8060
       - PRODUCT_PORTAL_URL=product-portal
       - PRODUCT_PORTAL_PORT=8070
     depends_on:
