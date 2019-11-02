@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: api-gateway
-          image: neerajbhattneeraj/billing-api-gateway:1.2
+          image: neerajbhattneeraj/billing-api-gateway:1.2.3
           ports:
             - containerPort: 8080
           env:

@@ -3,10 +3,10 @@ kind: Service
 metadata:
   name: billing-api-gateway-cluster-ip
 spec:
-  type: ClusterIP
+  type: NodePort
   ports:
     - port: 8080
       targetPort: 8080
+      nodePort: 30004
   selector:
     component: api-gateway
-ClusterIP
